@@ -1,0 +1,3 @@
+docker File sharing失败
+暂时修复不了
+https://stackoverflow.com/questions/57819352/docker-desktop-for-macos-cant-add-usr-local-folder-in-preferences-file-sharing

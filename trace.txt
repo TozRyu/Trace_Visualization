@@ -1,0 +1,17 @@
+Trace-id vs log-id
+
+严格来说log-id不是trace-id，但是也可以是。
+trace本质上是提供透传信息的能力，logId常用于串联日志信息，
+所以大部分场景下logId都是trace的透传能力在系统间透传的，在系统内部往往是threadLocal或者context的概念保存。
+初次之外，之前我们还讨论过一种有意思的问题就是异步场景下的串联。
+根据之前的内容我们其实讨论过，trace本身由于起止时间的限制虽然可以用于异步场景，但是这样会给信息分析带来很多麻烦，
+在实际中我其实更倾向于将traceId定义在同步调用的scope内，在异步场景下，比如异步rpc，或者消息队列场景下，重新构造logId。
+
+
+sudo lsof -P -i:9411 查看开启的端口号
+
+See Configuration for more about how Zipkin is configured
+https://github.com/openzipkin/zipkin/tree/master/zipkin-server#configuration
+
+java -jar zipkin-server-***-exec.jar --zipkin.collector.rabbitmq.addresses=localhost --zipkin.collector.rabbitmq.port=6572 --zipkin.collector.rabbitmq.username=guest --zipkin.collector.rabbitmq.password=guest --STORAGE_TYPE=mysql --MYSQL_HOST=localhost --MYSQL_TCP_PORT=3306 --MYSQL_DB=zipkin --MYSQL_USER=root --MYSQL_PASS=rootroot
+

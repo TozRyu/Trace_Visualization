@@ -1,0 +1,4 @@
+maven-plugin-shade
+1.把整个项目依赖都打包到uber-jar中
+shade- 即重命名某些某些依赖的包
+https://blog.csdn.net/u011441473/article/details/127844885
