@@ -6,6 +6,9 @@ spring:
     name: trace
 
 management:
+  server:
+    # 指定监端点暴露监听端口
+    port: 10101
   prometheus:
     metrics:
       export:
@@ -25,10 +28,19 @@ management:
     sampling:
       probability: 1.0 #采样率默认为0.1(0.1就是10次只能有一次被记录下来）,值越大收集越及时
   endpoints:
+    #配置不同类型(web)
     web:
+      cors:
+        #允许跨域的方法
+        allowed-methods: *
+      # 配置http方式暴露端点
       exposure:
+        #配置暴露的端点,配置"*"暴露全部
         include: "*"
-
+        #配置不暴露的端点
+        exclude:
+      # 配置通过http方式暴露端点的根路径
+      base-path: "/actuator"
 logging:
   file:
     path: ${user.dir}/${spring.application.name}/

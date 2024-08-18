@@ -5,3 +5,8 @@ git pull origin master --allow-unrelated-histories
 docker File sharing失败
 暂时修复不了
 https://stackoverflow.com/questions/57819352/docker-desktop-for-macos-cant-add-usr-local-folder-in-preferences-file-sharing
+
+查询应用所有日志
+http://localhost:10101/actuator/loggers
+查询应用指定日志
+http://localhost:10101/actuator/loggers/org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping
