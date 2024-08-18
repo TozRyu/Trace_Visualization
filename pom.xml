@@ -20,9 +20,16 @@
 
         <hutool.version>5.8.29</hutool.version>
         <lombok.version>1.18.34</lombok.version>
+        <guava.version>33.2.1-jre</guava.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
