@@ -1,10 +1,8 @@
-package io.mircometer.entity;
+package io.micrometer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Book {
 
     private String title;

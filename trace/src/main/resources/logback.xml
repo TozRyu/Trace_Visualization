@@ -13,8 +13,7 @@
     <!--    </appender>-->
 
 
-    <!--	<logger name="org.springframework.web" level="DEBUG"/>-->
-    <!--	<logger name="org.springframework.cloud" level="DEBUG"/>-->
+    <logger name="org.springframework.web" level="DEBUG"/>
 
     <!--    收集 Spring Boot 应用程序日志并将其发送到Grafana Loki -->
     <!--    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">-->
@@ -32,10 +31,20 @@
     <!--        </format>-->
     <!--    </appender>-->
 
+    <!-- 日志配置 https://www.cnblogs.com/suizhikuo/p/14778028.html -->
 
-    <root level="DEBUG">
-        <appender-ref ref="CONSOLE"/>
-<!--        <appender-ref ref="FILE"/>-->
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="io.micrometer.endpoint" level="DEBUG" additivity="false">
+            <appender-ref ref="consoleLog"/>
+        </logger>
+    </springProfile>
+
+
+    <root level="INFO">
+        <!--        <appender-ref ref="CONSOLE"/>-->
+        <!--        <appender-ref ref="FILE"/>-->
         <!--        <appender-ref ref="LOKI"/>-->
         <!--        <appender-ref ref="OPEN_TELEMETRY"/>-->
     </root>

@@ -17,7 +17,6 @@
         <micrometer-tracing.version>1.1.6</micrometer-tracing.version>
         <boot.version>3.3.2</boot.version>
         <zipkin.version>3.4.0</zipkin.version>
-
     </properties>
 
     <dependencies>
@@ -27,11 +26,16 @@
             <version>${boot.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -55,18 +59,17 @@
             <version>${micrometer.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-appoptics</artifactId>
-            <version>${micrometer.version}</version>
-        </dependency>
-
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${boot.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--        <dependency> 放开会启动失败 -->
+        <!--            <groupId>io.micrometer</groupId>-->
+        <!--            <artifactId>micrometer-registry-appoptics</artifactId>-->
+        <!--            <version>${micrometer.version}</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

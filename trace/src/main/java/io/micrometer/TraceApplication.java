@@ -1,4 +1,4 @@
-package io.mircometer;
+package io.micrometer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

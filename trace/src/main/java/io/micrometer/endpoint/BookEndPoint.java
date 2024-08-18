@@ -1,10 +1,9 @@
-package io.mircometer.endpoint;
+package io.micrometer.endpoint;
 
+import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.mircometer.entity.Book;
-
-import lombok.RequiredArgsConstructor;
+import io.micrometer.entity.Book;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,20 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(value = "/trace/books")
 public class BookEndPoint {
 
     private final MeterRegistry meterRegistry;
 
-    @GetMapping
-    public ResponseEntity<List<Book>> getBooks(@RequestParam String title) {
+    public BookEndPoint(MeterRegistry registry) {
+        this.meterRegistry = registry;
+    }
 
+    @Timed(value="greeting",description = "time taken to return greeting")
+    @GetMapping("/getBooks")
+    public ResponseEntity<List<Book>> getBooks(@RequestParam("title") String title) {
         Counter counter = Counter.builder("trace/books/get")
                 .tag("title", title)
                 .description("a number of requests to /trace/books endpoint")
                 .register(meterRegistry);
+
+        Counter prepare = meterRegistry.counter("http.request.total", "endpoint", "trace/books/get");
+
         counter.increment();
+        prepare.increment();
 
         List<Book> books = new ArrayList<>();
         books.add(Book.withTitle(title));

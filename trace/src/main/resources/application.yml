@@ -1,7 +1,15 @@
+server:
+  port: 8989
+
 spring:
   application:
     name: trace
+
 management:
+  prometheus:
+    metrics:
+      export:
+        enabled: true
   metrics:
     distribution:
       percentiles-histogram:
@@ -12,18 +20,18 @@ management:
       application: ${spring.application.name}
   zipkin:
     tracing:
-      endpoint: http://127.0.0.1:9411/api/v2/spans
+      endpoint: http://10.188.188.170:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0 #采样率默认为0.1(0.1就是10次只能有一次被记录下来）,值越大收集越及时
   endpoints:
     web:
       exposure:
-        include: prometheus
-server:
-  port: 8989
+        include: "*"
+
 logging:
   file:
     path: ${user.dir}/${spring.application.name}/
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+  # config: # Location fo logging configuration
