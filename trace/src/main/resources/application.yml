@@ -7,7 +7,7 @@ spring:
 
 management:
   server:
-    # 指定监端点暴露监听端口
+    # actuator 指定监端点暴露监听端口
     port: 10101
   prometheus:
     metrics:
@@ -24,7 +24,8 @@ management:
   zipkin:
     tracing:
       endpoint: http://10.188.188.170:9411/api/v2/spans
-  tracing:
+      encoding: proto3
+  tracing: #enabled:true 默认
     sampling:
       probability: 1.0 #采样率默认为0.1(0.1就是10次只能有一次被记录下来）,值越大收集越及时
   endpoints:
@@ -32,7 +33,7 @@ management:
     web:
       cors:
         #允许跨域的方法
-        allowed-methods: *
+        allowed-methods: "*"
       # 配置http方式暴露端点
       exposure:
         #配置暴露的端点,配置"*"暴露全部
@@ -41,9 +42,20 @@ management:
         exclude:
       # 配置通过http方式暴露端点的根路径
       base-path: "/actuator"
+  endpoint:
+    shutdown:
+      enabled: true #优雅关机
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
 logging:
   file:
     path: ${user.dir}/${spring.application.name}/
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   # config: # Location fo logging configuration
+  level:
+    org:
+      springframework:
+        web: DEBUG

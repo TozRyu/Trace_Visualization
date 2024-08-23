@@ -10,3 +10,20 @@ https://stackoverflow.com/questions/57819352/docker-desktop-for-macos-cant-add-u
 http://localhost:10101/actuator/loggers
 查询应用指定日志
 http://localhost:10101/actuator/loggers/org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping
+
+
+https://www.xlabs.club/blog/spring-boot-micrometer/
+自定义指标规范
+指标和 Tag 命名约定使用英语句号分隔，全小写，Tag 可根据实际情况使用缩写。指标名在不同的 MeterRegistry 里会自动转换，比如在 Prometheus 会把 fs.sms.send 转换为 fs_sms_send。
+指标命名建议以 fs.application.action 为模板，避免与开源或其他项目组冲突。
+注意 Tag values 不能为 Null， 且必须是可枚举的某些固定类型便于统计。
+使用注解@Timed @Counted会默认增加 method、class、result、exception 这几个 Tag，注意不要与之冲突。
+公司和开源默认 Tag 如下，这些会被 ServiceMonitor 强制覆盖，业务不要自己定义。
+namespace、application、service、container、pod、instance、job、endpoint、id
+编码中如果需要 MeterRegistry，不允许引用具体实现（比如 Prometheus 的 io.prometheus.client.CollectorRegistry），而是使用 Micrometer 提供的统一接口 MeterRegistry。类比，在打印日志时不允许直接使用 logback 或 log4j api，而是使用 slf4j api.
+不要自己 new MeterRegistry，而是使用自动注入的或静态方法。
+建议为指标加上 description 字段。
+
+
+kafka rabbitmq 区别
+https://cloud.baidu.com/qianfandev/topic/361471

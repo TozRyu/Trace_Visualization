@@ -7,7 +7,11 @@ trace本质上是提供透传信息的能力，logId常用于串联日志信息�
 根据之前的内容我们其实讨论过，trace本身由于起止时间的限制虽然可以用于异步场景，但是这样会给信息分析带来很多麻烦，
 在实际中我其实更倾向于将traceId定义在同步调用的scope内，在异步场景下，比如异步rpc，或者消息队列场景下，重新构造logId。
 
+ZipKin支持接入Micrometer的数据，作为仪表板，可以清晰看见每条链路的请求响应数据
 
+Span标识发起的请求信息，各span通过parent id 关联起来 (Span:表示调用链路来源，通俗的理解span就是一次请求信息)
+Span：基本工作单位。例如，发送 RPC 是一个新的跨度，向 RPC 发送响应也是如此。跨度还包含其他数据，例如描述、时间戳事件、键值注释（标记）、导致这些值的跨度的 ID 以及进程 ID（通常为 IP 地址）
+Trace:：形成树状结构的一组跨度。例如，如果运行分布式大数据存储，则 PUT 跟踪可能由请求形成。
 sudo lsof -P -i:9411 查看开启的端口号
 
 See Configuration for more about how Zipkin is configured
