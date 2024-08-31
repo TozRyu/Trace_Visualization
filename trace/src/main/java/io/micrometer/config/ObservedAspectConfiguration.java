@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ObservedAspectConfiguration {
 
-    @Bean
-    public ObservedAspect observedAspect(ObservationRegistry observationRegistry) {
-        observationRegistry.observationConfig().observationHandler(new SpanHandler());
-        return new ObservedAspect(observationRegistry);
-    }
+	@Bean
+	public ObservedAspect observedAspect(ObservationRegistry observationRegistry) {
+		observationRegistry.observationConfig().observationHandler(new SpanHandler());
+		return new ObservedAspect(observationRegistry);
+	}
 
 }

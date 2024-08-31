@@ -10,19 +10,19 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class SpanHandler implements ObservationHandler<Observation.Context> {
 
-    @Override
-    public void onStart(Observation.Context context) {
-        log.info("SpanHandler Starting context {} ", context);
-    }
+	@Override
+	public void onStart(Observation.Context context) {
+		log.info("SpanHandler Starting context {} ", context);
+	}
 
-    @Override
-    public void onStop(Observation.Context context) {
-        log.info("SpanHandler Stopping context {} ", context);
-    }
+	@Override
+	public void onStop(Observation.Context context) {
+		log.info("SpanHandler Stopping context {} ", context);
+	}
 
-    @Override
-    public boolean supportsContext(Observation.Context context) {
-        return true;
-    }
+	@Override
+	public boolean supportsContext(Observation.Context context) {
+		return true;
+	}
 
 }

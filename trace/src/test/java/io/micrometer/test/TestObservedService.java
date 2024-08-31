@@ -32,7 +32,7 @@ public class TestObservedService {
 
         // run your production code with the TestObservationRegistry
         new ExampleObservation(registry).run();
-
+        // assertThat 返回哪个Assert取决于 registry
         // check your observation
         TestObservationRegistryAssert.assertThat(registry)
                 .doesNotHaveAnyRemainingCurrentObservation()
@@ -46,20 +46,20 @@ public class TestObservedService {
 
     @Test
     void should_assert_our_observation() {
-// create a test registry
+        // create a test registry
         TestObservationRegistry registry = TestObservationRegistry.create();
-// add a system out printing handler
+        // add a system out printing handler
         registry.observationConfig().observationHandler(new ObservationTextPublisher());
 
-// create a proxy around the observed service
+        // create a proxy around the observed service
         AspectJProxyFactory pf = new AspectJProxyFactory(new TestObService());
         pf.addAspect(new ObservedAspect(registry));
 
-// make a call
+        // make a call
         TestObService service = pf.getProxy();
         service.call();
 
-// assert that observation has been properly created
+        // assert that observation has been properly created
         TestObservationRegistryAssert.assertThat(registry)
                 .hasSingleObservationThat()
                 .hasBeenStopped()
@@ -68,16 +68,15 @@ public class TestObservedService {
                 .hasLowCardinalityKeyValue("abc", "123")
                 .hasLowCardinalityKeyValue("test", "42")
                 .hasLowCardinalityKeyValue("class", TestObService.class.getName())
-                .hasLowCardinalityKeyValue("method", "call").doesNotHaveError();
+                .hasLowCardinalityKeyValue("method", "call")
+                .doesNotHaveError();
     }
-
 
     public static void main(String[] args) {
         // create a test registry
         ObservationRegistry registry = ObservationRegistry.create();
         // add a system out printing handler
         registry.observationConfig().observationHandler(new ObservationTextPublisher());
-
 
         // create a proxy around the observed service
         AspectJProxyFactory pf = new AspectJProxyFactory(new TestObService());
@@ -94,37 +93,35 @@ public class TestObservedService {
                 .highCardinalityKeyValue("highTag", "highTagValue")
                 .observe(() -> System.out.println("Hello"));
 
-
-        Condition<Observed> conditions = AllOf.allOf(
-                new Condition<>((Observed observed) -> {
-                    return observed.name().equals("test.call");
-                }, "name is test.call"),
-                new Condition<>((Observed observed) -> {
-                    return observed.contextualName().equals("test#call");
-                }, "contextualName is adult")
-        );
+        Condition<Observed> conditions = AllOf.allOf(new Condition<>((Observed observed) -> {
+            return observed.name().equals("test.call");
+        }, "name is test.call"), new Condition<>((Observed observed) -> {
+            return observed.contextualName().equals("test#call");
+        }, "contextualName is adult"));
 
         ObservationRegistryAssert.assertThat(registry).isNotNull();
-//        ObservationRegistryAssert.assertThat(registry).is(conditions);
-//        Condition<Observed> condition = org.assertj.core.api.Assertions.assertThat(Observed.class)
-//                .hasPublicFields()
-//                .hasName("myObserved")
-//                .hasTags("env", "dev")
-//                .hasTags("region", "north")
-//                .hasMetric("myMetric", 10.0);
 
-//        ObservationRegistryAssert.assertThat(registry).is(conditions);
+        // ObservationRegistryAssert.assertThat(registry).is(conditions);
+        // Condition<Observed> condition =
+        // org.assertj.core.api.Assertions.assertThat(Observed.class)
+        // .hasPublicFields()
+        // .hasName("myObserved")
+        // .hasTags("env", "dev")
+        // .hasTags("region", "north")
+        // .hasMetric("myMetric", 10.0);
+
+        // ObservationRegistryAssert.assertThat(registry).is(conditions);
 
         // assert that observation has been properly created
-//        TestObservationRegistryAssert.assertThat(registry)
-//                .hasSingleObservationThat()
-//                .hasBeenStopped()
-//                .hasNameEqualTo("test.call")
-//                .hasContextualNameEqualTo("test#call")
-//                .hasLowCardinalityKeyValue("abc", "123")
-//                .hasLowCardinalityKeyValue("test", "42")
-//                .hasLowCardinalityKeyValue("class", TestObService.class.getName())
-//                .hasLowCardinalityKeyValue("method", "call").doesNotHaveError();
+        // TestObservationRegistryAssert.assertThat(registry)
+        // .hasSingleObservationThat()
+        // .hasBeenStopped()
+        // .hasNameEqualTo("test.call")
+        // .hasContextualNameEqualTo("test#call")
+        // .hasLowCardinalityKeyValue("abc", "123")
+        // .hasLowCardinalityKeyValue("test", "42")
+        // .hasLowCardinalityKeyValue("class", TestObService.class.getName())
+        // .hasLowCardinalityKeyValue("method", "call").doesNotHaveError();
 
     }
 

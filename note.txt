@@ -28,6 +28,8 @@ namespace、application、service、container、pod、instance、job、endpoint�
 kafka rabbitmq 区别
 https://cloud.baidu.com/qianfandev/topic/361471
 
+将项目中的Java代码格式化:spring-javaformat:apply
+
 
 Spring Boot 自动将 ObservationRegistry 替换为 TestObservationRegistry 的机制与 Spring Test 相关的自动配置和上下文初始化过程有关。具体实现主要涉及到以下几个关键组件：
 

@@ -19,40 +19,43 @@ import java.util.List;
 @RequestMapping(value = "/trace/books")
 public class BookEndPoint {
 
-    private final MeterRegistry meterRegistry;
+	private final MeterRegistry meterRegistry;
 
-    @Autowired
-    MicrometerCountService countService;
-    @Autowired
-    MicrometerTimedService timedService;
-    @Autowired
-    MicroObService obService;
+	@Autowired
+	MicrometerCountService countService;
 
-    public BookEndPoint(MeterRegistry registry) {
-        this.meterRegistry = registry;
-    }
+	@Autowired
+	MicrometerTimedService timedService;
 
-    //    @Timed(value="greeting",description = "time taken to return greeting")
-    @GetMapping("/getBooks")
-    public ResponseEntity<List<Book>> getBooks(@RequestParam("title") String title) {
-//        Counter counter = Counter.builder("trace/books/get")
-//                .tag("title", title)
-//                .description("a number of requests to /trace/books endpoint")
-//                .register(meterRegistry);
-//
-//        Counter prepare = meterRegistry.counter("http.request.total", "endpoint", "trace/books/get");
-//
-//        counter.increment();
-//        prepare.increment();
+	@Autowired
+	MicroObService obService;
 
-        List<Book> books = new ArrayList<>();
-        books.add(Book.withTitle(title));
-        countService.sendByAli();
-        countService.sendByHuawei();
-        timedService.sendByAli();
-        timedService.sendByHuawei();
-        obService.call();
-        return ResponseEntity.ok(books);
-    }
+	public BookEndPoint(MeterRegistry registry) {
+		this.meterRegistry = registry;
+	}
+
+	// @Timed(value="greeting",description = "time taken to return greeting")
+	@GetMapping("/getBooks")
+	public ResponseEntity<List<Book>> getBooks(@RequestParam("title") String title) {
+		// Counter counter = Counter.builder("trace/books/get")
+		// .tag("title", title)
+		// .description("a number of requests to /trace/books endpoint")
+		// .register(meterRegistry);
+		//
+		// Counter prepare = meterRegistry.counter("http.request.total", "endpoint",
+		// "trace/books/get");
+		//
+		// counter.increment();
+		// prepare.increment();
+
+		List<Book> books = new ArrayList<>();
+		books.add(Book.withTitle(title));
+		countService.sendByAli();
+		countService.sendByHuawei();
+		timedService.sendByAli();
+		timedService.sendByHuawei();
+		obService.call();
+		return ResponseEntity.ok(books);
+	}
 
 }
