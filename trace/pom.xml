@@ -17,6 +17,7 @@
         <micrometer-tracing.version>1.1.6</micrometer-tracing.version>
         <boot.version>3.3.2</boot.version>
         <zipkin.version>3.4.0</zipkin.version>
+        <aspectj.version>1.9.22.1</aspectj.version>
     </properties>
 
     <dependencies>
@@ -49,26 +50,22 @@
         <!--zipkin-reporter-java Zipkin Reporter缓冲从跟踪程序库收集的跟踪数据，并将其发送到Zipkin兼容的后端。
             该存储库包括一个Java报告库，其中包含特定于传输的发送者。
             传输选项包括HTTP，Apache ActiveMQ，Apache Kafka，gRPC，RabbitMQ和Scribe（Apache Thrift） -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.zipkin.reporter2</groupId>-->
-        <!--            <artifactId>zipkin-reporter</artifactId>-->
-        <!--            <version>${zipkin.version}</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.zipkin.zipkin2</groupId>-->
-        <!--            <artifactId>zipkin</artifactId>-->
-        <!--            <version>3.4.1</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.zipkin.reporter2</groupId>-->
-        <!--            <artifactId>zipkin-sender-okhttp3</artifactId>-->
-        <!--            <version>3.4.0</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.zipkin.zipkin2</groupId>
+            <artifactId>zipkin</artifactId>
+            <version>3.4.1</version>
+        </dependency>
         <dependency>
             <groupId>io.zipkin.reporter2</groupId>
             <artifactId>zipkin-reporter-brave</artifactId>
-            <version>3.4.0</version>
-        </dependency> <!-- 包含上面三个 -->
+            <version>${zipkin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-sender-okhttp3</artifactId>
+            <version>${zipkin.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
@@ -82,14 +79,13 @@
         </dependency>
 
 
-        <!-- handler确少 -->
+        <!-- handler aop 缺少 -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.22.1</version>
+            <version>${aspectj.version}</version>
             <scope>runtime</scope>
         </dependency>
-
 
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -102,6 +98,14 @@
             <version>${boot.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-observation-test</artifactId>
+            <version>1.13.3</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- 未知作用-->
         <!--        <dependency>-->

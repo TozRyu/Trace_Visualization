@@ -27,3 +27,35 @@ namespace、application、service、container、pod、instance、job、endpoint�
 
 kafka rabbitmq 区别
 https://cloud.baidu.com/qianfandev/topic/361471
+
+
+Spring Boot 自动将 ObservationRegistry 替换为 TestObservationRegistry 的机制与 Spring Test 相关的自动配置和上下文初始化过程有关。具体实现主要涉及到以下几个关键组件：
+
+1. ObservationAutoConfiguration
+Spring Boot 通过自动配置类 ObservationAutoConfiguration 来初始化 ObservationRegistry，并在适当的情况下注册它的实现。
+这是 Spring Boot 自动配置机制的一部分，位于 spring-boot-actuator-autoconfigure 模块中。
+2. TestObservationRegistry
+TestObservationRegistry 是 ObservationRegistry 的一个专用子类，用于在测试环境中捕获观测信息，通常用于断言测试。
+该类位于 micrometer-observation 相关依赖中，具体来说是 micrometer-observation JAR 包。
+3. ObservationTestExecutionListener
+这个类是测试执行的监听器，用来在测试上下文中替换 ObservationRegistry。它会监听测试启动和结束的生命周期，并将 ObservationRegistry 替换为 TestObservationRegistry。
+这个监听器位于 micrometer-spring-legacy JAR 包中，用来在 Spring Test 中自动配置和替换 ObservationRegistry。
+实现替换机制的具体类
+1. ObservationTestExecutionListener
+ObservationTestExecutionListener 是实现 ObservationRegistry 替换的关键类。它是一个 Spring 的测试监听器，用于在测试上下文启动时进行相关配置。这意味着在 Spring Test 框架启动时，会通过该监听器把标准的 ObservationRegistry 替换为 TestObservationRegistry。
+
+所在的 JAR 包：micrometer-spring-legacy
+所在的类：ObservationTestExecutionListener
+2. ObservationAutoConfiguration
+自动配置类 ObservationAutoConfiguration 负责在生产环境中注入 ObservationRegistry，而在测试环境下，Spring 会使用上述的监听器将其替换为 TestObservationRegistry。
+
+所在的 JAR 包：spring-boot-actuator-autoconfigure
+所在的类：ObservationAutoConfiguration
+运行流程
+Spring Test Context Setup: 当你运行测试用例并使用 @SpringBootTest 或其他测试注解时，Spring 会自动初始化测试上下文，包括注册所有需要的 Bean。
+TestObservationRegistry 替换: 在测试上下文启动时，ObservationTestExecutionListener 监听器会介入，将默认的 ObservationRegistry 替换为 TestObservationRegistry。
+断言支持: 在测试中，使用 TestObservationRegistryAssert 进行断言时，TestObservationRegistry 捕获的观测数据可以轻松被验证。
+总结
+替换机制所在类: ObservationTestExecutionListener
+所在 JAR 包: micrometer-spring-legacy
+这个机制确保了在测试环境中，ObservationRegistry 会自动替换为 TestObservationRegistry，从而支持测试中的观测断言。

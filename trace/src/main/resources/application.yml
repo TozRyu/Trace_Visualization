@@ -21,6 +21,8 @@ management:
             requests: true
     tags:
       application: ${spring.application.name}
+    enable:
+      process: true
   zipkin:
     tracing:
       endpoint: http://10.188.188.170:9411/api/v2/spans
