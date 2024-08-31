@@ -139,5 +139,34 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>macos</id>
+            <activation>
+                <activeByDefault>true</activeByDefault><!--  默认激活-->
+            </activation>
+            <properties>
+                <profiles.active>macos</profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>pc</id>
+            <properties>
+                <profiles.active>pc</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
 </project>

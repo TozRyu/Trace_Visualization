@@ -1,0 +1,4 @@
+management:
+  zipkin:
+    tracing:
+      endpoint: http://10.188.188.170:9411/api/v2/spans

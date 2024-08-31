@@ -47,7 +47,6 @@
     <build>
         <!--  https://github.com/spring-io/spring-javaformat  -->
         <plugins>
-
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
@@ -95,4 +94,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

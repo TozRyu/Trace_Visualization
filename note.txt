@@ -12,6 +12,11 @@ http://localhost:10101/actuator/loggers
 http://localhost:10101/actuator/loggers/org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping
 
 
+快速导航
+https://mousika.grafana.net/a/cloud-home-app/onboarding-flow/start
+创建的面板
+https://mousika.grafana.net/d/rpfmFFz7za/prometheus-starter
+
 https://www.xlabs.club/blog/spring-boot-micrometer/
 自定义指标规范
 指标和 Tag 命名约定使用英语句号分隔，全小写，Tag 可根据实际情况使用缩写。指标名在不同的 MeterRegistry 里会自动转换，比如在 Prometheus 会把 fs.sms.send 转换为 fs_sms_send。
