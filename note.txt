@@ -66,3 +66,29 @@ TestObservationRegistry 替换: 在测试上下文启动时，ObservationTestExe
 替换机制所在类: ObservationTestExecutionListener
 所在 JAR 包: micrometer-spring-legacy
 这个机制确保了在测试环境中，ObservationRegistry 会自动替换为 TestObservationRegistry，从而支持测试中的观测断言。
+
+
+
+
+Loki 是一个日志系统，由 Grafana Labs 开发，旨在与 Prometheus 和 Grafana 无缝集成。它专注于高效地处理、存储和查询日志数据。
+Loki 的设计理念是将日志数据的索引和存储分开，从而降低存储成本并提高查询效率。
+
+### Loki 的主要特点：
+
+1. **与 Prometheus 集成：** Loki 和 Prometheus 使用相似的标签系统，使得你可以轻松地将日志与指标关联起来，从而获得更全面的监控视图。
+2. **低成本存储：** Loki 将日志数据的索引与数据本身分开存储，从而降低存储和处理的成本。
+3. **灵活的查询：** Loki 支持基于日志标签的查询，你可以方便地根据时间、标签和内容进行检索。
+4. **与 Grafana 集成：** Loki 可以与 Grafana 无缝集成，使你能够在 Grafana 中直接查看和分析日志数据。
+
+### 在 Spring Boot + Prometheus + Grafana + Micrometer 的系统中加入 Loki 的理由：
+
+1. **统一视图：** 如果你已经使用 Prometheus 和 Grafana 来监控指标，Loki 可以将日志数据集成到同一个仪表板中，提供统一的监控和日志视图。
+2. **丰富的日志分析：** Loki 可以提供详细的日志分析和查询能力，这对于故障排查和性能监控非常有用。
+3. **简化问题定位：** 将日志和指标结合起来，你可以更快地找到问题的根源，例如通过查看异常日志和对应的指标变化。
+
+### 是否有必要加入 Loki：
+
+- **如果你需要集成的日志和指标视图：** Loki 可以显著增强你的监控能力，使你可以在 Grafana 中通过日志和指标之间的关联更好地理解系统行为。
+- **如果现有日志管理系统已经满足需求：** 如果你已经有一个日志管理和分析系统，并且它能满足你的需求，那么引入 Loki 可能不是必要的，除非你希望利用 Grafana 提供的统一视图。
+
+总结来说，Loki 在一个已有的 Spring Boot + Prometheus + Grafana + Micrometer 系统中提供了日志集成的优势，特别是在你希望将日志与指标结合在一个统一的界面中查看和分析时。如果你已经使用 Grafana 来监控系统，那么加入 Loki 可能会让你的监控系统更加完整和强大。
