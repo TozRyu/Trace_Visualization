@@ -1,9 +1,51 @@
 package com.leetcode.tree;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class BinaryTreeByIterative {
+/**
+ *     1
+ *    / \
+ *   2   5
+ *  / \ / \
+ * 3  4 6  7
+ * DFS 一条道走到黑 1→2→3 走到头再回头→2 所以是深度优先遍历
+ */
+@Log4j2
+public class DepthFirstSearch {
+
+    // 避免闭环
+    boolean[] visited;
+
+    static void preOrderByTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode.visit(root);
+        preOrderByTraversal(root.left);
+        preOrderByTraversal(root.right);
+
+    }
+
+    static void inOrderByTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrderByTraversal(root.left);
+        TreeNode.visit(root);
+        inOrderByTraversal(root.right);
+    }
+
+    static void postOrderByTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postOrderByTraversal(root.left);
+        postOrderByTraversal(root.right);
+        TreeNode.visit(root);
+    }
 
     /**
      * 1.复制二叉树
@@ -16,7 +58,7 @@ public class BinaryTreeByIterative {
      *
      * @param root
      */
-    static void preOrder(TreeNode root) {
+    static void preOrderByIterative(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -37,19 +79,27 @@ public class BinaryTreeByIterative {
 
     /**
      * 有序的，得到的节点值序列是按从小到大的顺序排列的。
-     * 4
-     * / \
-     * 2   6
+     *    4
+     *   / \
+     *  2   6
      * / \ / \
      * 1  3 5  7  (1.二叉搜索树（BST）的排序输出)
      * 2.二叉搜索树(BST)的验证
      * 3.找到BST中第K大或小的元素
      * 4. 平衡二叉搜索树的构建
      * 5. 将二叉搜索树转换为排序的双向链表
+     *         4
+     *        / \
+     *       2   6
+     *      / \ / \
+     *     1  3 5  7
+     *       /
+     *      8
+     * 输出 1 2 8 3 4 5 6 7
      *
      * @param root
      */
-    static void inOrder(TreeNode root) {
+    static void inOrderByIterative(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode current = root;
         while (current != null || !stack.isEmpty()) {
@@ -75,7 +125,7 @@ public class BinaryTreeByIterative {
      *
      * @param root
      */
-    static void postOrder(TreeNode root) {
+    static void postOrderByIterative(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -94,6 +144,7 @@ public class BinaryTreeByIterative {
                 stack.push(node.right);
             }
         }
-        result.forEach(System.out::print);
+        result.forEach(System.out::println);
     }
+
 }

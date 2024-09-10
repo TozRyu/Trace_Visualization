@@ -28,3 +28,8 @@ pie showData title undoList about life
 "slimming":0.2
 "buaa":0
 ```
+$$
+x = \frac{-b\pm\sqrt{b^-4ac}}{2a}
+$$
+
+日志分级别查看，Grafana监控大屏，异步日志输送
