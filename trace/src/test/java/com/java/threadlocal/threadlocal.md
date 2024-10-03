@@ -73,7 +73,6 @@ public class ThreadLocalWithUserContext implements Runnable {
     public void test2() {
         testX();
     }
-      ...
 
     public void testX() {
         Map clientInfo = threadLocal.get();
